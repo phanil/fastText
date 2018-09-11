@@ -359,10 +359,16 @@ void FastText::skipgram(Model& model, real lr,
   for (int32_t w = 0; w < line.size(); w++) {
     int32_t boundary = uniform(model.rng);
     const std::vector<int32_t>& ngrams = dict_->getSubwords(line[w]);
+
+    std::vector<int32_t> shuffled_line;
+    shuffled_line.reserve(boundary * 2 + 1);
     for (int32_t c = -boundary; c <= boundary; c++) {
       if (c != 0 && w + c >= 0 && w + c < line.size()) {
-        model.update(ngrams, line[w + c], lr);
+        shuffled_line.push_back(line[w + c]);
       }
+    }
+    for (size_t i = 0; i < shuffled_line.size(); i++) {
+      model.update(ngrams, shuffled_line[i], lr);
     }
   }
 }
