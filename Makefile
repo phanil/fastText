@@ -50,3 +50,6 @@ fasttext: $(OBJS) src/fasttext.cc
 
 clean:
 	rm -rf *.o fasttext
+
+install:
+    cp -f fasttext /usr/local/bin/
