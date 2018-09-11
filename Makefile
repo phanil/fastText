@@ -52,4 +52,5 @@ clean:
 	rm -rf *.o fasttext
 
 install:
-    cp -f fasttext /usr/local/bin/
+	cp -f fasttext /usr/local/bin/
+
